@@ -93,4 +93,5 @@ function Archiver(){
     // }
     // data.age=22;
 }
-var arc =new Archiver
+var arc =new Archiver();
+arc.temperatrue = 35;

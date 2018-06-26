@@ -1,9 +1,9 @@
 <template>
-    <button class="el-button" 
+    <button @click="handleClick" class="el-button" :type="nativeType" 
     :class = "[type?'el-button--' + type:'',
-    {'is-disabled':buttonDisabled}
-    ]"
-    :disabled="buttonDisabled" @click="handleChange">
+    {'is-disabled':buttonDisabled,'isloading':loading},size?'el-button--' + size:''
+    ]" 
+    :disabled="buttonDisabled">
         <i class="el-icon-loading" v-if="loading"></i>
         <i v-if='icon&&!loading' :class="icon"></i>
         <slot></slot>
@@ -23,6 +23,14 @@
             icon:{
                 type:String,
                 default:''
+            },
+            nativeType:{
+                type:String,
+                default:''
+            },
+            size:{
+                type:String,
+                default:''
             }
         },
         computed: {
@@ -30,9 +38,10 @@
                 return this.disabled;
             }
         },
-        methods: {
-            handleChange () {
-                this.$emit('change', this.loading)
+        methods: { 
+            handleClick(evt){
+                // console.log(evt);
+                this.$emit('click',evt);
             }
         }
 

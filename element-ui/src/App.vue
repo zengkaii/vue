@@ -49,16 +49,62 @@
                 </el-form-item>
               </el-form>
               <el-dialog title="设置活动分类" :visible.sync="dialogFormFenLeiVisble">
-                <el-form>
+                <el-form onsubmit="return false">
                   <el-form-item>
-                    <el-tag v-for="fenLei of ruleForm.fenleis" type="primary" :key="fenLei.name"  @close="handleClose(fenLei)" closable>{{fenLei.name}}</el-tag>
-                  </el-form-item>
-                </el-form>
+                    <el-tag v-for="fenLei of ruleForm.fenleis" type="primary" :key="fenLei"  @close="handleClose(fenLei)" closable>{{fenLei.name}}</el-tag>
 
+                    <el-input class="input-new-tag" v-if="inputVisible" v-model="inputValue" ref="saveTagInput" @keyup.enter.native="handleInputConfirm" @blur="handleInputConfirm"></el-input>
+                    <el-button v-else class="button-new-tag" @click="showInput">+New Tag</el-button>       
+                  </el-form-item>
+
+                </el-form>
               </el-dialog>
+              <el-form class="demo-ruleForm" ref="ruleForm" label-position="top" :model="ruleForm" onsubmit="return false"> 
+                <el-form-item label="" prop="fenLei">
+                  <el-row style="height:35px;" type="flex">
+                    <el-col :span="3" style="width:90px;">
+                      <div class="el-form-item__label">活动标签</div>
+                    </el-col>
+                  </el-row>
+                    <el-tag v-for="fenLei of ruleForm.fenleis" type="primary" :key="fenLei"  @close="handleClose(fenLei)" closable>{{fenLei.name}}</el-tag>
+                    <el-input class="input-new-tag" v-if="inputVisible" v-model="inputValue" ref="saveTagInput" @keyup.enter.native="handleInputConfirm" @blur="handleInputConfirm"></el-input>
+                    <el-button v-else class="button-new-tag" @click="showInput">+New Tag</el-button> 
+                    
+                </el-form-item>
+                <el-form-item label="活动时间" required style="width:750px;">
+                  <el-col :span="5">
+                    <el-form-item prop="activeStartTimeDate">
+                      <el-data-picker v-model="ruleForm.activeStartTimeDate" type="date" placeholder="活动开始时间"></el-data-picker>
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="5">
+
+                  </el-col>
+
+                  <el-col :span="5">
+
+                  </el-col>
+                  <el-col :span="5">
+
+                  </el-col>
+                  <el-col :span="5">
+
+                  </el-col>
+                  <el-col :span="5">
+
+                  </el-col>
+                  <el-col :span="5">
+
+                  </el-col>
+                  <el-col :span="5">
+
+                  </el-col>
+                </el-form-item>
+              </el-form>
+
             </div>
             <el-button-group>
-              <el-button v-show="lastStep" type="primary" style="margin-top:12px" @click.native.prevent="last">上一步</el-button>
+              <el-button v-show="lastStep" style="margin-top:12px" @click.native.prevent="last">上一步</el-button>
               <el-button v-show="nextStep" type="primary" style="margin-top:12px" @click.native.prevent="next">下一步</el-button>
               <el-button type="primary" style="margin-top:12px">发布活动</el-button>
             </el-button-group>
@@ -74,10 +120,13 @@ export default {
   name: 'App',
   data () {
     return {
-          step:2,
+          step:1,
+          type:'',
           lastStep:true,
           nextStep:true,
           dialogFormFenLeiVisble:false,
+          inputValue:'',
+          inputVisible:false,
           ruleForm:{
             name:'',
             fenleis:[
@@ -91,11 +140,13 @@ export default {
                 name:'精彩活动'
               }
             ],
-            fenLeis:'测试活动',
-            tags:[]
+            fenLei:'测试活动',
+            tags:[],
+            activeStartTimeDate:''
           }
     }
   },
+
   components: {
   },
   mounted () {
@@ -105,14 +156,40 @@ export default {
   },
   methods:{
     handleClose(tag){
-      console.log(this.ruleForm.fenleis)
       this.ruleForm.fenleis.splice(this.ruleForm.fenleis.indexOf(tag), 1);
 
+    },  
+    showInput(){
+      this.inputVisible = true;
+      this.$nextTick(_ =>{
+        this.$refs.saveTagInput.$refs.input.focus();
+      });
     },
+    handleInputConfirm(){
+      let inputValue = this.inputValue;
+      // inputValue.trim();
+      console.log(inputValue);
+        if (inputValue) {
+          if(!inputValue){
+            return ;
+          }else if(inputValue.trim().length==0){
+            return ;
+          }
+          else{
+            inputValue.trim();
+            this.ruleForm.fenleis.push(
+            {name:inputValue}
+            );
+          }
+          
+        }
+        this.inputVisible = false;
+        this.inputValue = '';
+      
+    },
+  
     next(){
-      // if(this.step>=3){
-      //   this.nextStep=false
-      // }
+
       this.step++;
       this.goStep(this.step);
         
@@ -182,5 +259,21 @@ main{
 main .main-left{text-align: center;-webkit-box-flex: 0;-ms-flex: 0 0 200px;flex: 0 0 200px;}
 main .main-right{-webkit-box-flex:1;-ms-flex:1;flex:1; background-color: #fff; padding: 50px 70px; }
 main .el-menu{background-color: transparent!important;}
+  .el-tag + .el-tag {
+    margin-left: 10px;
+  }
+  .button-new-tag {
+    margin-left: 10px;
+    height: 32px;
+    line-height: 30px;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+  .input-new-tag {
+    width: 90px;
+    margin-left: 10px;
+    vertical-align: bottom;
+  }
+
 
 </style>

@@ -4,6 +4,7 @@ import Vue from 'vue'
 import App from './App'
 // webpack 让css 也可以像js一样被引入，让一切静态资源皆可引入
 import ElementUI from 'element-ui'
+import './mock'
 import 'element-ui/lib/theme-chalk/index.css'
 Vue.use(ElementUI)
 Vue.config.productionTip = false

@@ -7,7 +7,8 @@
       <ele-radio label="女"></ele-radio>
       <ele-radio label="男"></ele-radio>
     </ele-radio-group> -->
-    <comment></comment>
+    <!-- <comment></comment> -->
+    <article-table></article-table>
   </div>
 </template>
 
@@ -18,6 +19,7 @@ import Markdown from '@/views/Markdown'
 import EleRadioGroup from '@/components/EleRadioGroup'
 import EleRadio from '@/components/EleRadio'
 import Comment from '@/components/Comment'
+import ArticleTable from '@/views/ArticleTable'
 export default {
   data () {
     return {
@@ -30,7 +32,8 @@ export default {
     EleRadio,
     Login,
     Comment,
-    Markdown
+    Markdown,
+    ArticleTable
     
   }
 }

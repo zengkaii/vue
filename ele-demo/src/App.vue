@@ -23,13 +23,13 @@ export default {
 // name+enter进入的那一瞬间
 // name+enter-active 会在进入的整个过程里,完全进入后会移除这个类名
 .router-fade-enter-active 
-	transition opacity 3s
+	transition opacity .3s
 	
 .router-fade-enter
 	opacity 0
 
 .router-fade-leave-active
-	transition opacity 3s
+	transition opacity .3s
 
 .router-fade-leave-to
 	opacity 0

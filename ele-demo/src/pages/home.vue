@@ -37,19 +37,25 @@ export default {
     components: {
         headTop
     },
+    props:['signinUp'],
     // 生命周期 城市？不准确，又耗时的api 阻塞组件渲染
-    mounted () {
-        cityGuess()
-        .then(res => res.json())
-        .then(data => {
-            this.guessCityid = data.id
-            this.guessCity = data.name
-        })
-        hotcity()
-        .then(res => res.json())
-        .then(data => {
-            this.hotcity = data
-        })
+    async mounted () {
+        //  cityGuess()
+        // .then(res => res.json())
+        // .then(data => {
+        //     this.guessCityid = data.id
+        //     this.guessCity = data.name
+        // })
+        // hotcity()
+        // .then(res => res.json())
+        // .then(data => {
+        //     this.hotcity = data
+        // })
+        const cityData = await cityGuess()
+        this.guessCityid = cityData.id
+        this.guessCity = cityData.name
+        const citiesHot =await hotcity()
+        this.hotcity = citiesHot
     }
 
 }

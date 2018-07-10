@@ -45,3 +45,11 @@ export const searchplace = (cityid,keyword) => new Promise((resolve,reject) => {
     const url = `/v1/pois?type=search&city_id=${cityid}&keyword=${keyword}`
     http.get(url).then(res => resolve(res.data))
 })
+export const msiteFoodTypes = (geohash) => new Promise((resolve,reject) => {
+    const url = `/v2/index_entry`
+    http.get(url,{
+        geohash,
+        group_type:'1',
+        'flags[]':'F'
+    }).then(res => resolve(res.data))
+})

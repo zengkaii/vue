@@ -5,14 +5,18 @@
 </template>
 
 <script>
+// import Bus from '@/common/bus.js'
 export default {
     props:{
         index:Number
     },
     methods:{
         doClick(event){
-                console.log(event.target.dataset.index)
-        }
+                // console.log(event.target.dataset.index);
+                // Bus.$emit('getTarget',event.target.dataset.index);
+                this.$emit('global:getTarget',event.target.dataset.index)
+        },
+        // getTarget
     }
 }
 </script>

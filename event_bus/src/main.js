@@ -3,9 +3,9 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-
+import EventProxy from 'vue-event-proxy'
 Vue.config.productionTip = false
-
+Vue.use(EventProxy)
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
